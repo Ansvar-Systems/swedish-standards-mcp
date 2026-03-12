@@ -26,15 +26,22 @@ const SOURCES_YML = join(PROJECT_ROOT, 'sources.yml');
 
 // Map from framework DB id -> source id used in coverage.json
 const FRAMEWORK_TO_SOURCE: Record<string, string> = {
-  'bio2': 'bio2',
-  'dnb-gpib-2023': 'dnb-gpib',
-  'nen-7510-2017': 'nen-7510',
-  'nen-7512-2022': 'nen-7512',
-  'nen-7513-2023': 'nen-7513',
-  'ncsc-web-2023': 'ncsc-web',
-  'digid-3.0': 'digid',
-  'ncsc-tls-2.1': 'ncsc-tls',
-  'logius-api': 'logius-api',
+  'msb-metodstod': 'msb-metodstod',
+  'msb-grundlaggande': 'msb-grundlaggande',
+  'msb-riskanalys': 'msb-riskanalys',
+  'msb-klassificering': 'msb-klassificering',
+  'msb-incidenthantering': 'msb-incidenthantering',
+  'digg-digital-sakerhet': 'digg-digital-sakerhet',
+  'digg-sdk': 'digg-sdk',
+  'msbfs-2020': 'msbfs-2020',
+  'sapo-sakerhetsskydd': 'sapo-sakerhetsskydd',
+  'cert-se-rekommendationer': 'cert-se-rekommendationer',
+  'pts-driftsakerhet': 'pts-driftsakerhet',
+  'fi-it-verksamhet': 'fi-it-verksamhet',
+  'imy-tekniska-atgarder': 'imy-tekniska-atgarder',
+  'hslf-fs-informationshantering': 'hslf-fs-informationshantering',
+  'nis2-cybersakerhetslagen': 'nis2-cybersakerhetslagen',
+  'energi-transport-sakerhet': 'energi-transport-sakerhet',
 };
 
 // Canonical source metadata — derived from sources.yml
@@ -129,7 +136,7 @@ function getLastChecked(extractedData: {
 }
 
 async function main(): Promise<void> {
-  console.log('Update Coverage — Dutch Standards MCP');
+  console.log('Update Coverage — Swedish Standards MCP');
   console.log('=======================================');
 
   mkdirSync(DATA_DIR, { recursive: true });
@@ -251,7 +258,7 @@ async function main(): Promise<void> {
   const generatedAt = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z');
 
   const coverage = {
-    mcp_name: 'dutch-standards-mcp',
+    mcp_name: 'swedish-standards-mcp',
     generated_at: generatedAt,
     summary: {
       frameworks: frameworkCount,
@@ -275,7 +282,7 @@ async function main(): Promise<void> {
 
     // Update the summary totals line
     const totalControls = coverageSources.reduce((sum, s) => sum + s.item_count, 0);
-    const newTotalLine = `**Total:** ${toolFiles.length} tools, ${totalControls} controls/requirements, database built from ${coverageSources.length} authoritative Dutch sources.`;
+    const newTotalLine = `**Total:** ${toolFiles.length} tools, ${totalControls} controls/requirements, database built from ${coverageSources.length} authoritative Swedish sources.`;
     mdContent = mdContent.replace(
       /\*\*Total:\*\*[^\n]+/,
       newTotalLine

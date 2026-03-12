@@ -1,6 +1,6 @@
-# CLAUDE.md - Dutch Standards MCP
+# CLAUDE.md - Swedish Standards MCP
 
-MCP server for Dutch government cybersecurity standards.
+MCP server for Swedish government cybersecurity standards.
 
 ## Build & Test
 

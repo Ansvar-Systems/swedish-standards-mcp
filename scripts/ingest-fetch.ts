@@ -1,7 +1,7 @@
 // scripts/ingest-fetch.ts
-// Orchestrates fetching from GitHub sources (BIO2, Logius).
-// Skips PDF sources (dnb-gpib, nen-*, ncsc-*, digid) — these require manual extraction.
-// Runs each sub-script via execFileSync and prints a summary.
+// Orchestrates all Swedish standards ingestion scripts.
+// Each script writes its output to data/extracted/<framework>.json.
+// All data is embedded in the scripts (no external API or GitHub fetching required).
 
 import { execFileSync } from 'node:child_process';
 import { join, dirname } from 'node:path';
@@ -17,19 +17,13 @@ interface FetchResult {
   durationMs: number;
 }
 
-const GITHUB_SOURCES: { script: string; source: string }[] = [
-  { script: join(__dirname, 'ingest-bio2.ts'), source: 'BIO2 (MinBZK GitHub)' },
-  { script: join(__dirname, 'ingest-logius.ts'), source: 'Logius API Design Rules (GitHub)' },
-];
-
-const SKIPPED_SOURCES: { id: string; reason: string }[] = [
-  { id: 'dnb-gpib', reason: 'PDF source — manual extraction required' },
-  { id: 'nen-7510', reason: 'PDF source (NEN Connect) — manual extraction required' },
-  { id: 'nen-7512', reason: 'PDF source (NEN Connect) — manual extraction required' },
-  { id: 'nen-7513', reason: 'PDF source (NEN Connect) — manual extraction required' },
-  { id: 'ncsc-web', reason: 'PDF source — manual extraction required' },
-  { id: 'ncsc-tls', reason: 'PDF source — manual extraction required' },
-  { id: 'digid', reason: 'PDF source — manual extraction required' },
+const SOURCES: { script: string; source: string }[] = [
+  { script: join(__dirname, 'ingest-msb-metodstod.ts'), source: 'MSB Metodstod (Systematic Information Security)' },
+  { script: join(__dirname, 'ingest-msb-grundlaggande.ts'), source: 'MSB Grundlaggande (Basic Security Measures)' },
+  { script: join(__dirname, 'ingest-digg.ts'), source: 'DIGG Digital Sakerhet (Digital Security Guidance)' },
+  { script: join(__dirname, 'ingest-msbfs.ts'), source: 'MSBFS 2020:6 and 2020:7 (MSB Regulations)' },
+  { script: join(__dirname, 'ingest-sapo.ts'), source: 'SAPO Sakerhetsskydd (Security Protection)' },
+  { script: join(__dirname, 'ingest-cert-se.ts'), source: 'CERT-SE Rekommendationer (Technical Recommendations)' },
 ];
 
 function runScript(scriptPath: string): { success: boolean; error?: string; durationMs: number } {
@@ -51,30 +45,28 @@ function runScript(scriptPath: string): { success: boolean; error?: string; dura
 }
 
 async function main(): Promise<void> {
-  console.log('Ingest Fetch — Dutch Standards MCP');
-  console.log('====================================');
-  console.log(`Running ${GITHUB_SOURCES.length} GitHub source fetches`);
-  console.log(`Skipping ${SKIPPED_SOURCES.length} PDF/manual sources`);
+  console.log('Ingest Fetch — Swedish Standards MCP');
+  console.log('======================================');
+  console.log(`Running ${SOURCES.length} ingestion scripts`);
   console.log('');
 
   const results: FetchResult[] = [];
 
-  for (const { script, source } of GITHUB_SOURCES) {
-    console.log(`--- Fetching: ${source} ---`);
+  for (const { script, source } of SOURCES) {
+    console.log(`--- Ingesting: ${source} ---`);
     const result = runScript(script);
     results.push({ script, source, ...result });
     console.log('');
   }
 
   // Summary
-  console.log('=============================');
-  console.log('Fetch Summary');
-  console.log('=============================');
+  console.log('==============================');
+  console.log('Ingestion Summary');
+  console.log('==============================');
 
   const succeeded = results.filter((r) => r.success);
   const failed = results.filter((r) => !r.success);
 
-  console.log(`\nGitHub sources:`);
   for (const r of results) {
     const status = r.success ? 'OK' : 'FAILED';
     const duration = (r.durationMs / 1000).toFixed(1);
@@ -84,13 +76,8 @@ async function main(): Promise<void> {
     }
   }
 
-  console.log(`\nSkipped (PDF/manual):`);
-  for (const s of SKIPPED_SOURCES) {
-    console.log(`  [SKIP] ${s.id} — ${s.reason}`);
-  }
-
   console.log('');
-  console.log(`Result: ${succeeded.length}/${GITHUB_SOURCES.length} GitHub sources fetched successfully`);
+  console.log(`Result: ${succeeded.length}/${SOURCES.length} sources ingested successfully`);
 
   if (failed.length > 0) {
     console.error(`\n${failed.length} source(s) failed. Check output above.`);

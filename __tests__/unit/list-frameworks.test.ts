@@ -3,7 +3,7 @@ import { describe, it, expect } from 'vitest';
 import { handleListFrameworks } from '../../src/tools/list-frameworks.js';
 
 describe('handleListFrameworks', () => {
-  it('returns a Markdown table containing all 9 frameworks with control counts', () => {
+  it('returns a Markdown table containing all frameworks with control counts', () => {
     const result = handleListFrameworks();
 
     expect(result.isError).toBeFalsy();
@@ -11,33 +11,39 @@ describe('handleListFrameworks', () => {
 
     const text = result.content[0].text;
 
-    // Core framework IDs present
-    expect(text).toContain('bio2');
-    expect(text).toContain('nen-7510-2017');
-    expect(text).toContain('dnb-gpib-2023');
+    // Core framework IDs present (original 6)
+    expect(text).toContain('msb-metodstod');
+    expect(text).toContain('msb-grundlaggande');
+    expect(text).toContain('digg-digital-sakerhet');
+    expect(text).toContain('msbfs-2020');
+    expect(text).toContain('sapo-sakerhetsskydd');
+    expect(text).toContain('cert-se-rekommendationer');
 
-    // Framework names present (real data)
-    expect(text).toContain('Baseline Informatiebeveiliging Overheid');
-    expect(text).toContain('NEN 7510');
-    expect(text).toContain('DNB Good Practice');
+    // New framework IDs present
+    expect(text).toContain('msb-riskanalys');
+    expect(text).toContain('msb-klassificering');
+    expect(text).toContain('msb-incidenthantering');
+    expect(text).toContain('pts-driftsakerhet');
+    expect(text).toContain('fi-it-verksamhet');
+    expect(text).toContain('imy-tekniska-atgarder');
+    expect(text).toContain('hslf-fs-informationshantering');
+    expect(text).toContain('nis2-cybersakerhetslagen');
+    expect(text).toContain('digg-sdk');
+    expect(text).toContain('energi-transport-sakerhet');
 
-    // Issuing bodies present (real data)
-    expect(text).toContain('Binnenlandse Zaken');
-    expect(text).toContain('De Nederlandsche Bank');
-
-    // bio2 row present
-    expect(text).toContain('| bio2 |');
+    // Issuing bodies present
+    expect(text).toContain('MSB');
+    expect(text).toContain('PTS');
+    expect(text).toContain('FI');
 
     // Sectors present
     expect(text).toContain('government');
-    expect(text).toContain('healthcare');
-    expect(text).toContain('finance');
 
     // Markdown table structure
     expect(text).toContain('| ID |');
     expect(text).toContain('|');
 
-    // 9 frameworks
-    expect(text).toContain('9 frameworks');
+    // 16 frameworks
+    expect(text).toContain('16 frameworks');
   });
 });

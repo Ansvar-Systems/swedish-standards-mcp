@@ -1,4 +1,4 @@
-# Tools — Dutch Standards MCP
+# Tools -- Swedish Standards MCP
 
 > 11 tools across 4 categories: search, lookup, comparison, and meta
 
@@ -8,16 +8,16 @@
 
 ### `search_controls`
 
-Full-text search across all Dutch cybersecurity controls using FTS5. Returns controls ranked by relevance from the combined BIO2, DNB, NEN, NCSC-NL, DigiD, and Logius datasets. Use this when you need to find controls by keyword without knowing the framework.
+Full-text search across all Swedish cybersecurity controls using FTS5. Returns controls ranked by relevance from the combined MSB Metodstod, MSB Grundlaggande, DIGG, MSBFS, SAPO, and CERT-SE datasets. Use this when you need to find controls by keyword without knowing the framework.
 
 **Parameters:**
 
 | Param | Type | Required | Description |
 |-------|------|----------|-------------|
-| `query` | string | Yes | Search terms, e.g. `"toegangsbeveiliging"`, `"encryption"`, `"incident response"` |
-| `framework_id` | string | No | Restrict results to one framework, e.g. `"BIO2"`, `"DNB"`, `"NEN7510"` |
-| `category` | string | No | Filter by control category, e.g. `"Toegangsbeveiliging"` |
-| `language` | `"nl"` \| `"en"` | No | Preferred display language for titles. Defaults to Dutch (`"nl"`). Controls without an English title always show Dutch. |
+| `query` | string | Yes | Search terms, e.g. `"informationssakerhet"`, `"encryption"`, `"incident response"` |
+| `framework_id` | string | No | Restrict results to one framework, e.g. `"msb-metodstod"`, `"cert-se-rekommendationer"`, `"msbfs-2020"` |
+| `category` | string | No | Filter by control category, e.g. `"Ledning och styrning"` |
+| `language` | `"sv"` \| `"en"` | No | Preferred display language for titles. Defaults to Swedish (`"sv"`). Controls without an English title always show Swedish. |
 | `limit` | integer | No | Maximum results to return. Default: `20`. |
 | `offset` | integer | No | Pagination offset. Default: `0`. |
 
@@ -25,18 +25,18 @@ Full-text search across all Dutch cybersecurity controls using FTS5. Returns con
 
 **Example:**
 ```
-"Which Dutch government controls address password management?"
--> search_controls({ query: "wachtwoord", language: "nl" })
+"Which Swedish government controls address information security management?"
+-> search_controls({ query: "informationssakerhet", language: "sv" })
 
-"Find BIO2 controls on encryption"
--> search_controls({ query: "encryptie", framework_id: "BIO2" })
+"Find MSB Metodstod controls on risk analysis"
+-> search_controls({ query: "riskanalys", framework_id: "msb-metodstod" })
 ```
 
-**Data sources:** All 7 frameworks (BIO2, DNB, NEN7510, NEN7512, NEN7513, NCSC-NL-WebApp, NCSC-NL-TLS, DigiD, Logius-API)
+**Data sources:** All 6 frameworks (msb-metodstod, msb-grundlaggande, digg-digital-sakerhet, msbfs-2020, sapo-sakerhetsskydd, cert-se-rekommendationer)
 
 **Limitations:**
 - FTS5 phrase search: special characters (`"`, `^`, `*`, `-`, `:`) are stripped from the query before matching
-- Searches bilingual content — a Dutch-only query may miss English-only descriptions in the same control
+- Searches bilingual content -- a Swedish-only query may miss English-only descriptions in the same control
 - Does not support wildcard or regex patterns
 - Relevance ranking is FTS5 rank, not semantic similarity
 
@@ -50,25 +50,25 @@ Returns frameworks applicable to a specific sector, optionally filtered by a key
 
 | Param | Type | Required | Description |
 |-------|------|----------|-------------|
-| `sector` | string | Yes | One of: `government`, `healthcare`, `finance`, `energy`, `telecom`, `transport`, `water`, `digital_infrastructure`, `education` |
+| `sector` | string | Yes | One of: `government`, `healthcare`, `finance`, `energy`, `telecom`, `transport`, `water`, `digital_infrastructure`, `education`, `defense` |
 | `query` | string | No | Optional keyword search within the sector's frameworks |
 
 **Returns:** A Markdown table of matching frameworks (ID, name, issuing body, version, control count, language). If `query` is provided, a second table lists matching controls within those frameworks (top 10 per framework, ranked by FTS5 relevance).
 
 **Example:**
 ```
-"What security frameworks apply to Dutch healthcare organizations?"
--> search_by_sector({ sector: "healthcare" })
+"What security frameworks apply to Swedish government agencies?"
+-> search_by_sector({ sector: "government" })
 
-"Which healthcare controls cover audit logging?"
--> search_by_sector({ sector: "healthcare", query: "auditlog" })
+"Which government controls cover risk analysis?"
+-> search_by_sector({ sector: "government", query: "riskanalys" })
 ```
 
 **Data sources:** Framework `scope_sectors` metadata + FTS5 on controls
 
 **Limitations:**
-- Sector taxonomy is fixed to the 9 values listed above
-- A framework appears only if it was ingested with sector metadata — frameworks without `scope_sectors` are not returned
+- Sector taxonomy is fixed to the values listed above
+- A framework appears only if it was ingested with sector metadata -- frameworks without `scope_sectors` are not returned
 - Query within sector does not cross-search frameworks not assigned to that sector
 
 ---
@@ -83,22 +83,21 @@ Retrieves the full record for a single control by its database ID. Returns the c
 
 | Param | Type | Required | Description |
 |-------|------|----------|-------------|
-| `control_id` | string | Yes | The control's database ID, e.g. `"BIO2-5.1"`, `"DNB-03"`, `"NEN7510-A.9.1.1"` |
+| `control_id` | string | Yes | The control's database ID, e.g. `"msb-metodstod:L1"`, `"cert-se-rekommendationer:CSE-1"`, `"msbfs-2020:2020:6-1"` |
 
-**Returns:** A structured Markdown document with control number, Dutch and English titles, framework and issuing body, category, level, ISO 27002 mapping, Dutch description (`Beschrijving`), English description, implementation guidance, verification guidance, and source URL.
+**Returns:** A structured Markdown document with control number, Swedish and English titles, framework and issuing body, category, level, ISO 27002 mapping, Swedish description (`Beskrivning`), English description, implementation guidance, verification guidance, and source URL.
 
 **Example:**
 ```
-"Give me the full text of BIO2 control 5.1"
--> get_control({ control_id: "BIO2-5.1" })
+"Give me the full text of MSB Metodstod control L1"
+-> get_control({ control_id: "msb-metodstod:L1" })
 ```
 
 **Data sources:** `controls` table joined to `frameworks`
 
 **Limitations:**
-- Returns a `NO_MATCH` error if the ID does not exist — use `search_controls` or `list_controls` to discover valid IDs
-- Implementation guidance and verification guidance may be absent for some controls (especially NEN standards where full text is licensed)
-- Not all controls have English descriptions — Dutch is always present
+- Returns a `NO_MATCH` error if the ID does not exist -- use `search_controls` or `list_controls` to discover valid IDs
+- Not all controls have English descriptions -- Swedish is always present
 
 ---
 
@@ -110,20 +109,20 @@ Returns metadata for a single framework: issuing body, version, effective date, 
 
 | Param | Type | Required | Description |
 |-------|------|----------|-------------|
-| `framework_id` | string | Yes | Framework identifier, e.g. `"BIO2"`, `"DNB"`, `"NEN7510"`, `"NCSC-NL-TLS"`, `"DigiD"`, `"Logius-API"` |
+| `framework_id` | string | Yes | Framework identifier, e.g. `"msb-metodstod"`, `"msb-grundlaggande"`, `"digg-digital-sakerhet"`, `"msbfs-2020"`, `"sapo-sakerhetsskydd"`, `"cert-se-rekommendationer"` |
 
-**Returns:** A Markdown document with framework name (Dutch and English), issuing body, version, language, control count, effective date, sectors, scope description, structure description, license, and a category breakdown table.
+**Returns:** A Markdown document with framework name (Swedish and English), issuing body, version, language, control count, effective date, sectors, scope description, structure description, license, and a category breakdown table.
 
 **Example:**
 ```
-"What is the BIO2 framework and how many controls does it have?"
--> get_framework({ framework_id: "BIO2" })
+"What is the MSB Metodstod framework and how many controls does it have?"
+-> get_framework({ framework_id: "msb-metodstod" })
 ```
 
 **Data sources:** `frameworks` table, `controls` aggregate
 
 **Limitations:**
-- Does not return the controls themselves — use `list_controls` to enumerate them
+- Does not return the controls themselves -- use `list_controls` to enumerate them
 - Sector and scope fields depend on ingestion quality; some frameworks may have incomplete metadata
 
 ---
@@ -138,10 +137,10 @@ Lists all controls in a framework, with optional filtering by category and level
 
 | Param | Type | Required | Description |
 |-------|------|----------|-------------|
-| `framework_id` | string | Yes | Framework identifier, e.g. `"BIO2"`, `"NEN7510"` |
-| `category` | string | No | Filter to one category, e.g. `"Toegangsbeveiliging"` |
-| `level` | string | No | Filter by BBN level: `"BBN1"`, `"BBN2"`, `"BBN3"` (BIO2 only) |
-| `language` | `"nl"` \| `"en"` | No | Preferred display language for titles. Defaults to Dutch. |
+| `framework_id` | string | Yes | Framework identifier, e.g. `"msb-metodstod"`, `"msb-grundlaggande"` |
+| `category` | string | No | Filter to one category, e.g. `"Ledning och styrning"`, `"Tekniska atgarder"` |
+| `level` | string | No | Filter by level, e.g. `"Grundlaggande"`, `"Bindande"` |
+| `language` | `"sv"` \| `"en"` | No | Preferred display language for titles. Defaults to Swedish. |
 | `limit` | integer | No | Maximum results. Default: `50`. |
 | `offset` | integer | No | Pagination offset. Default: `0`. |
 
@@ -149,47 +148,47 @@ Lists all controls in a framework, with optional filtering by category and level
 
 **Example:**
 ```
-"List all BIO2 controls at BBN2 level"
--> list_controls({ framework_id: "BIO2", level: "BBN2" })
+"List all MSB Metodstod controls in the leadership category"
+-> list_controls({ framework_id: "msb-metodstod", category: "Ledning och styrning" })
 
-"Show me all NEN 7510 access control requirements"
--> list_controls({ framework_id: "NEN7510", category: "Toegangsbeveiliging" })
+"Show me all MSB Grundlaggande technical controls"
+-> list_controls({ framework_id: "msb-grundlaggande", category: "Tekniska atgarder" })
 ```
 
 **Data sources:** `controls` table
 
 **Limitations:**
-- Category and level values must match exactly as stored in the database — use `get_framework` to see the available categories first
-- Default limit of 50 may truncate large frameworks (BIO2 has ~93 controls, NEN7510 ~150)
+- Category and level values must match exactly as stored in the database -- use `get_framework` to see the available categories first
+- Default limit of 50 may truncate large frameworks (msb-metodstod has 98 controls)
 
 ---
 
 ### `compare_controls`
 
-Searches the same keyword query across 2–4 frameworks simultaneously and shows the top 5 matching controls per framework side by side. Use this to compare how different Dutch standards treat the same topic.
+Searches the same keyword query across 2-4 frameworks simultaneously and shows the top 5 matching controls per framework side by side. Use this to compare how different Swedish standards treat the same topic.
 
 **Parameters:**
 
 | Param | Type | Required | Description |
 |-------|------|----------|-------------|
-| `query` | string | Yes | Topic to compare, e.g. `"toegangsbeveiliging"`, `"logging"`, `"encryptie"` |
-| `framework_ids` | string[] | Yes | 2 to 4 framework IDs, e.g. `["BIO2", "NEN7510"]` or `["BIO2", "DNB", "DigiD", "Logius-API"]` |
+| `query` | string | Yes | Topic to compare, e.g. `"informationssakerhet"`, `"incident"`, `"riskanalys"` |
+| `framework_ids` | string[] | Yes | 2 to 4 framework IDs, e.g. `["msb-metodstod", "msbfs-2020"]` or `["msb-metodstod", "msb-grundlaggande", "digg-digital-sakerhet", "cert-se-rekommendationer"]` |
 
-**Returns:** A Markdown section per framework showing the control number, title, and a 150-character snippet of the Dutch description for up to 5 matching controls.
+**Returns:** A Markdown section per framework showing the control number, title, and a 150-character snippet of the Swedish description for up to 5 matching controls.
 
 **Example:**
 ```
-"How do BIO2 and DNB Good Practice differ in their approach to access control?"
--> compare_controls({ query: "toegangsbeveiliging", framework_ids: ["BIO2", "DNB"] })
+"How do MSB Metodstod and MSBFS 2020 differ in their approach to information security?"
+-> compare_controls({ query: "informationssakerhet", framework_ids: ["msb-metodstod", "msbfs-2020"] })
 
-"Compare incident response requirements across BIO2, NEN 7510, and DigiD"
--> compare_controls({ query: "incident", framework_ids: ["BIO2", "NEN7510", "DigiD"] })
+"Compare incident response requirements across MSB, CERT-SE, and SAPO"
+-> compare_controls({ query: "incident", framework_ids: ["msb-metodstod", "cert-se-rekommendationer", "sapo-sakerhetsskydd"] })
 ```
 
 **Data sources:** FTS5 on `controls` filtered by `framework_id`
 
 **Limitations:**
-- Returns at most 5 controls per framework — not a full comparison of all matching controls
+- Returns at most 5 controls per framework -- not a full comparison of all matching controls
 - Snippets are truncated at 150 characters; use `get_control` for full text
 - Both frameworks must be in the database; passing an unknown ID silently returns zero results for that framework
 
@@ -197,30 +196,30 @@ Searches the same keyword query across 2–4 frameworks simultaneously and shows
 
 ### `get_iso_mapping`
 
-Returns all Dutch controls that map to a specific ISO 27002:2022 control number. Use this to find which Dutch standards implement a given ISO requirement, or to check Dutch compliance coverage for an ISO audit.
+Returns all Swedish controls that map to a specific ISO 27002:2022 control number. Use this to find which Swedish standards implement a given ISO requirement, or to check Swedish compliance coverage for an ISO audit.
 
 **Parameters:**
 
 | Param | Type | Required | Description |
 |-------|------|----------|-------------|
-| `iso_control` | string | Yes | ISO 27002:2022 control reference, e.g. `"5.15"`, `"8.2"`, `"6.1"` |
+| `iso_control` | string | Yes | ISO 27002:2022 control reference, e.g. `"5.1"`, `"8.8"`, `"8.22"` |
 
-**Returns:** A Markdown table grouped by framework, listing each Dutch control mapped to that ISO reference (ID, control number, title).
+**Returns:** A Markdown table grouped by framework, listing each Swedish control mapped to that ISO reference (ID, control number, title).
 
 **Example:**
 ```
-"Which Dutch controls implement ISO 27002 control 5.15 (Identity management)?"
--> get_iso_mapping({ iso_control: "5.15" })
+"Which Swedish controls implement ISO 27002 control 5.1 (Policies for information security)?"
+-> get_iso_mapping({ iso_control: "5.1" })
 
-"Show me all Dutch framework controls that map to ISO 27002 8.2"
--> get_iso_mapping({ iso_control: "8.2" })
+"Show me all Swedish framework controls that map to ISO 27002 8.8"
+-> get_iso_mapping({ iso_control: "8.8" })
 ```
 
 **Data sources:** `controls.iso_mapping` field
 
 **Limitations:**
-- Only returns controls with an exact `iso_mapping` match — controls without ISO mapping are not included
-- ISO mapping coverage varies by framework: BIO2 has extensive mapping; NEN 7510 mapping is partial
+- Only returns controls with an exact `iso_mapping` match -- controls without ISO mapping are not included
+- ISO mapping coverage varies by framework: MSB Metodstod has extensive mapping; SAPO and CERT-SE mapping is partial
 - Does not support partial matches or range queries (e.g. `"5.x"` will not match)
 
 ---
@@ -237,14 +236,14 @@ Returns a summary table of all frameworks in the database. No parameters require
 
 **Example:**
 ```
-"What Dutch cybersecurity frameworks does this MCP cover?"
+"What Swedish cybersecurity frameworks does this MCP cover?"
 -> list_frameworks()
 ```
 
 **Data sources:** `frameworks` table joined to control counts
 
 **Limitations:**
-- Lists only frameworks loaded in the current database build — reflects ingestion coverage
+- Lists only frameworks loaded in the current database build -- reflects ingestion coverage
 - Sector data may be empty for frameworks ingested without sector metadata
 
 ---
@@ -259,7 +258,7 @@ Returns server metadata: version, category, schema version, database build date,
 
 **Example:**
 ```
-"What version of the Dutch Standards MCP is running and when was it last updated?"
+"What version of the Swedish Standards MCP is running and when was it last updated?"
 -> about()
 ```
 
@@ -289,7 +288,7 @@ Returns the data provenance table: for each source, the authority, standard name
 
 **Limitations:**
 - The fallback list is hardcoded; full YAML parsing requires an optional dependency not included in the default build
-- Does not show per-source item counts or last-refresh dates — use `check_data_freshness` for that
+- Does not show per-source item counts or last-refresh dates -- use `check_data_freshness` for that
 
 ---
 
@@ -303,33 +302,34 @@ Reports how current each data source is against its expected refresh schedule. R
 
 **Example:**
 ```
-"Is the Dutch Standards MCP data up to date?"
+"Is the Swedish Standards MCP data up to date?"
 -> check_data_freshness()
 ```
 
 **Data sources:** `data/coverage.json` (generated by `npm run coverage:update`)
 
 **Limitations:**
-- Returns a "no coverage data" message if `coverage.json` has not been generated yet — run `npm run coverage:update` after first build
+- Returns a "no coverage data" message if `coverage.json` has not been generated yet -- run `npm run coverage:update` after first build
 - Status is based on the `last_fetched` date in `coverage.json`, not a live check of upstream sources
 - `OVERDUE` status means the data is past its scheduled refresh window, not necessarily that the data has changed
 
 ---
 
-## Dutch Cybersecurity Glossary
+## Swedish Cybersecurity Glossary
 
-This glossary covers terms used in Dutch government cybersecurity standards that appear as parameters, category names, or framework identifiers in the tools above.
+This glossary covers terms used in Swedish government cybersecurity standards that appear as parameters, category names, or framework identifiers in the tools above.
 
 | Term | Expansion | Meaning |
 |------|-----------|---------|
-| **BBN** | Basisbeveiligingsniveau | Baseline security level. BIO2 defines three: BBN1 (basic), BBN2 (standard government), BBN3 (high-risk systems). Used as `level` parameter in `list_controls`. |
-| **BIO** | Baseline Informatiebeveiliging Overheid | The mandatory information security baseline for all Dutch government bodies. BIO2 is the current version (2024), based on ISO 27002:2022. Issued by CIP/BZK. |
-| **SIVA** | Strategisch / Inhoudelijk / Verbindend / Afstemmend | The four government roles in Dutch information security governance. Determines which BBN level applies to a system based on its strategic, substantive, connecting, or coordinating function. |
-| **Normenkader** | — | A normative framework or set of norms. Used specifically for the DigiD ICT Security Assessment Normenkader 3.0 (Logius), which sets 21 security norms for organizations connecting to DigiD. |
-| **Zorgplicht** | — | Duty of care. A legal obligation on organizations (especially critical infrastructure operators and government bodies) to take appropriate security measures. Referenced in NIS2 and Dutch cybersecurity law. |
-| **Meldplicht** | — | Reporting obligation. Requirement to notify a supervisory authority (e.g., the NCSC, the DPA) of a security incident or data breach within a defined timeframe. |
-| **Overheidsmaatregelen** | — | Government measures. Refers to the set of technical and organizational controls mandated by the Dutch government for specific system classifications under BIO2. |
-| **NCSC-NL** | Nationaal Cyber Security Centrum | The Dutch national cybersecurity authority, part of the Ministry of Justice and Security. Issues guidelines for web applications, TLS, and other technical topics. Framework ID: `NCSC-NL-WebApp`, `NCSC-NL-TLS`. |
-| **DNB** | De Nederlandsche Bank | The Dutch central bank and financial sector supervisor. Publishes the Good Practice Informatiebeveiliging for financial institutions. Framework ID: `DNB`. |
-| **NEN** | Nederlands Normalisatie-instituut | The Dutch standards body. Publishes NEN 7510 (healthcare information security), NEN 7512 (electronic data exchange in healthcare), and NEN 7513 (electronic patient records). |
-| **Logius** | — | The Dutch government's digital services agency (part of BZK). Issues the DigiD Normenkader and the NLGov REST API Design Rules. Framework IDs: `DigiD`, `Logius-API`. |
+| **MSB** | Myndigheten for samhallsskydd och beredskap | The Swedish Civil Contingencies Agency. Responsible for civil protection, public safety, and emergency management. Issues the Metodstod, Grundlaggande sakerhetesatgarder, and MSBFS regulations. |
+| **DIGG** | Myndigheten for digital forvaltning | The Agency for Digital Government. Responsible for digitalization of the public sector. Issues digital security guidelines. |
+| **SAPO** | Sakerhetspolisen | The Swedish Security Service. Responsible for protective security (sakerhetsskydd) including security screening, physical protection, and information security for classified operations. |
+| **CERT-SE** | Computer Emergency Response Team Sweden | The national CSIRT, operated by MSB. Publishes security advisories and technical recommendations for Swedish organizations. |
+| **MSBFS** | MSB:s forfattningssamling | MSB's regulatory publication series. MSBFS 2020:6 covers systematic information security for government agencies; MSBFS 2020:7 covers IT incident reporting obligations. |
+| **Metodstod** | -- | Methodology support. Refers to MSB's comprehensive methodology for systematic information security work, structured around ISO 27001 management system principles. |
+| **Sakerhetsskydd** | -- | Protective security. The Swedish regime for protecting national security interests, governed by the Protective Security Act (Sakerhetsskyddslagen 2018:585). Covers information security, physical security, and personnel security for classified activities. |
+| **Informationssakerhet** | -- | Information security. The Swedish term used across all frameworks for the discipline of protecting information assets through confidentiality, integrity, and availability controls. |
+| **Ledningssystem** | -- | Management system. Refers to the ISO 27001-based information security management system (ISMS) approach adopted by MSB Metodstod and required by MSBFS 2020:6. |
+| **PTS** | Post- och telestyrelsen | The Swedish Post and Telecom Authority. Regulates electronic communications and postal services. Not yet included in this MCP (planned for v0.2). |
+| **FI** | Finansinspektionen | The Swedish Financial Supervisory Authority. Supervises banks, insurers, and other financial institutions. IT security requirements not yet included (planned for v0.2). |
+| **SIS** | Svenska institutet for standarder | The Swedish Institute for Standards. Publishes Swedish adoptions of ISO/IEC standards (SS-EN ISO series). |

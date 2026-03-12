@@ -2,12 +2,12 @@
 
 ## npm
 
-Dutch government cybersecurity standards MCP -- BIO2, DNB Good Practice IB, NEN 7510/7512/7513, NCSC-NL guidelines, DigiD Normenkader, Logius API Design Rules. Part of the Ansvar MCP Network (ansvar.ai/mcp).
+Swedish government cybersecurity standards MCP -- MSB Metodstod, MSB Grundlaggande, DIGG Digital Sakerhet, MSBFS 2020:6/2020:7, SAPO Sakerhetsskydd, CERT-SE Rekommendationer. Part of the Ansvar MCP Network (ansvar.ai/mcp).
 
 ## Smithery
 
-Access Dutch government cybersecurity standards including BIO2, DNB Good Practice, NEN 7510 (healthcare), NCSC-NL guidelines, DigiD, and Logius API Design Rules. Bilingual (Dutch + English) with FTS search, ISO 27002 cross-references, and sector-based filtering.
+Access Swedish government cybersecurity standards including MSB Metodstod (systematic information security), MSB Grundlaggande (baseline measures), DIGG, MSBFS regulations, SAPO protective security, and CERT-SE recommendations. Bilingual (Swedish + English) with FTS search, ISO 27002 cross-references, and sector-based filtering.
 
 ## Glama
 
-Dutch government cybersecurity standards MCP covering 7 frameworks and 700+ controls. Search by keyword, sector, or ISO mapping. Bilingual Dutch/English support.
+Swedish government cybersecurity standards MCP covering 6 frameworks and 253 controls. Search by keyword, sector, or ISO mapping. Bilingual Swedish/English support.

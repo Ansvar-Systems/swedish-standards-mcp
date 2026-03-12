@@ -8,20 +8,32 @@ describe('meta-tools', () => {
   it('about returns server metadata with _meta', () => {
     const result = handleAbout();
     const text = result.content[0].text;
-    expect(text).toContain('Dutch Standards MCP');
+    expect(text).toContain('Swedish Standards MCP');
     expect(text).toContain('domain_intelligence');
     expect(text).toContain('Ansvar MCP Network');
     expect(result._meta).toBeDefined();
   });
 
-  it('list_sources returns all 7 sources', () => {
+  it('list_sources returns all 16 sources', () => {
     const result = handleListSources();
     const text = result.content[0].text;
-    expect(text).toContain('BIO2');
-    expect(text).toContain('DNB');
-    expect(text).toContain('NEN');
-    expect(text).toContain('NCSC-NL');
-    expect(text).toContain('Logius');
+    // Original sources
+    expect(text).toContain('MSB-Metodstod');
+    expect(text).toContain('MSB-Grundlaggande');
+    expect(text).toContain('MSBFS-2020');
+    expect(text).toContain('SAPO');
+    expect(text).toContain('CERT-SE');
+    // New sources
+    expect(text).toContain('MSB-Riskanalys');
+    expect(text).toContain('MSB-Klassificering');
+    expect(text).toContain('MSB-Incidenthantering');
+    expect(text).toContain('PTS');
+    expect(text).toContain('FI');
+    expect(text).toContain('IMY');
+    expect(text).toContain('HSLF-FS');
+    expect(text).toContain('NIS2');
+    expect(text).toContain('Energi-Transport');
+    expect(text).toContain('DIGG-SDK');
     expect(result._meta).toBeDefined();
   });
 

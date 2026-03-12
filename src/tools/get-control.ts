@@ -86,7 +86,7 @@ export function handleGetControl(args: { control_id?: string }) {
 
   // Bilingual descriptions
   if (row.description_nl) {
-    lines.push('### Beschrijving (NL)');
+    lines.push('### Beskrivning (SV)');
     lines.push(row.description_nl);
     lines.push('');
   }

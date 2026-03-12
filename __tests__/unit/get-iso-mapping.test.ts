@@ -3,7 +3,7 @@ import { describe, it, expect } from 'vitest';
 import { handleGetIsoMapping } from '../../src/tools/get-iso-mapping.js';
 
 describe('handleGetIsoMapping', () => {
-  it('finds Dutch controls mapped to ISO 5.1', () => {
+  it('finds Swedish controls mapped to ISO 5.1', () => {
     const result = handleGetIsoMapping({ iso_control: '5.1' });
 
     expect(result.isError).toBeFalsy();
@@ -11,8 +11,8 @@ describe('handleGetIsoMapping', () => {
 
     const text = result.content[0].text;
 
-    // bio2 controls with iso_mapping="5.1" must appear
-    expect(text).toContain('bio2:5.01.01');
+    // msb-metodstod controls with iso_mapping="5.1" must appear
+    expect(text).toContain('msb-metodstod:L1');
 
     // Should show the ISO control in the heading
     expect(text).toContain('5.1');
@@ -22,19 +22,19 @@ describe('handleGetIsoMapping', () => {
     expect(text).toContain('|');
   });
 
-  it('finds controls mapped to ISO 8.16', () => {
-    const result = handleGetIsoMapping({ iso_control: '8.16' });
+  it('finds controls mapped to ISO 8.8', () => {
+    const result = handleGetIsoMapping({ iso_control: '8.8' });
 
     expect(result.isError).toBeFalsy();
     expect(result._meta).toBeDefined();
 
     const text = result.content[0].text;
 
-    // bio2 controls with iso_mapping="8.16" must appear
-    expect(text).toContain('bio2:8.16');
+    // msb-grundlaggande:GT1 (Patch management) maps to 8.8
+    expect(text).toContain('msb-grundlaggande:GT1');
 
     // Should show the ISO control in the heading
-    expect(text).toContain('8.16');
+    expect(text).toContain('8.8');
 
     // Markdown table structure
     expect(text).toContain('| ID |');

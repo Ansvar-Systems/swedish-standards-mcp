@@ -28,8 +28,10 @@ export function handleAbout() {
   lines.push('### About');
   lines.push('');
   lines.push(
-    'This MCP server provides structured access to Dutch cybersecurity and information security standards, ' +
-    'including BIO2, NEN 7510, NEN-ISO/IEC 27001, DNB Good Practice, NCSC-NL guidelines, and Logius frameworks.'
+    'This MCP server provides structured access to Swedish cybersecurity and information security standards ' +
+    'from MSB (methodology, risk analysis, classification, incident management, regulations), DIGG (digital security, SDK, e-ID), ' +
+    'SAPO (security protection), CERT-SE (technical recommendations), PTS (telecom), FI (financial sector, DORA), ' +
+    'IMY (data protection), Socialstyrelsen/Inera (healthcare), NIS2 (cybersakerhetslagen), and sector-specific requirements (energy, transport).'
   );
   lines.push('');
   lines.push('Part of the **[Ansvar MCP Network](https://ansvar.eu)** — specialist MCP servers for compliance and security intelligence.');

@@ -2,16 +2,16 @@
 
 ## Not Professional Advice
 
-This tool provides structured access to Dutch government cybersecurity standards
+This tool provides structured access to Swedish government cybersecurity standards
 sourced from authoritative publications. It is provided for **informational and
 research purposes only**.
 
-- This is **not professional advice** — consult qualified experts for decisions
+- This is **not professional advice** -- consult qualified experts for decisions
   that affect security, compliance, or business operations
 - Data may be incomplete, outdated, or contain errors from automated ingestion
 - **Always verify** critical data against the authoritative source before
   relying on it professionally
-- The database is a snapshot — sources update, and there may be a delay between
+- The database is a snapshot -- sources update, and there may be a delay between
   upstream changes and database refresh
 
 ## No Warranty
@@ -23,19 +23,13 @@ the use of this tool or the data it provides.
 ## Data Accuracy
 
 Every effort is made to ensure data accuracy:
-- All data is sourced from authoritative publications (see `sources.yml`)
+- All data is sourced from authoritative Swedish government publications (see `sources.yml`)
 - Zero AI-generated or summarized content in the database
 - Automated golden tests verify data integrity
 - Scheduled ingestion keeps data current (see `COVERAGE.md` for refresh schedule)
 
 However, automated ingestion can introduce errors. When precision matters,
 cross-reference with the authoritative source.
-
-## NEN Standards
-
-NEN 7510, NEN 7512, and NEN 7513 content in this database is limited to
-extracted reference data (control identifiers, titles, and categories). Full
-standard text requires purchase from NEN. See [nen.nl](https://www.nen.nl).
 
 ## Authoritative Sources
 

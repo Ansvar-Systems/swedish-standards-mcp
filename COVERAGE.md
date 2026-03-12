@@ -1,8 +1,8 @@
-# Coverage — Dutch Standards MCP
+# Coverage -- Swedish Standards MCP
 
-> Last verified: 2026-03-12 | Database version: 0.1.0
+> Last verified: 2026-03-12 | Database version: 0.2.0
 
-This document declares exactly what data the Dutch Standards MCP contains, what it does not contain, and the limitations of each source. It is the contract with users.
+This document declares exactly what data the Swedish Standards MCP contains, what it does not contain, and the limitations of each source. It is the contract with users.
 
 ---
 
@@ -10,19 +10,42 @@ This document declares exactly what data the Dutch Standards MCP contains, what 
 
 | Source | Authority | Items | Version / Date | Completeness | Refresh |
 |--------|-----------|-------|----------------|-------------|---------|
-| BIO2 (Baseline Informatiebeveiliging Overheid) | CIP/BZK | ~93 controls | 2.0 (2024-01-01) | Full | Annual |
-| DNB Good Practice Informatiebeveiliging 2023 | De Nederlandsche Bank | ~58 controls | 2023 | Full | Annual |
-| NEN 7510:2017 / NEN 7512:2022 / NEN 7513:2023 | NEN | ~200 requirements | 7510:2017, 7512:2022, 7513:2023 | Partial (see note) | 5-year cycle |
-| NCSC-NL ICT Security Guidelines for Web Applications | NCSC-NL | ~200 requirements | 2023 | Full | Annual |
-| DigiD ICT Security Assessment Normenkader 3.0 | Logius | 21 norms | 3.0 (2023) | Full | Annual |
-| NCSC-NL Security Guidelines for TLS 2.1 | NCSC-NL | ~50 recommendations | 2.1 (2021) | Full | Annual |
-| Logius NLGov REST API Design Rules | Logius | ~80 rules | 2.0 (2024-01-01) | Full | Monthly |
+| MSB Metodstod (Systematiskt informationssakerhetsarbete) | MSB | 98 controls | 2024 | Full | Annual |
+| MSB Grundlaggande sakerhetesatgarder | MSB | 53 controls | 2024 | Full | Annual |
+| MSBFS 2020:6 / 2020:7 | MSB | 25 controls | 2020 | Full | Annual |
+| MSB Riskanalys (Vagledning for riskanalys) | MSB | 21 controls | 2024 | Full | Annual |
+| MSB Klassificering (Vagledning for klassificering) | MSB | 20 controls | 2024 | Full | Annual |
+| MSB Incidenthantering (Vagledning for incidenthantering) | MSB | 25 controls | 2024 | Full | Annual |
+| DIGG Digital Sakerhet | DIGG | 25 controls | 2024 | Full | Annual |
+| DIGG SDK / API / eID | DIGG | 25 controls | 2024 | Full | Annual |
+| SAPO Sakerhetsskydd | Sakerhetspolisen (SAPO) | 35 controls | 2024 | Full | Manual |
+| CERT-SE Rekommendationer | CERT-SE (MSB) | 25 controls | 2024 | Full | Annual |
+| PTS Driftsakerhet (PTSFS) | Post- och telestyrelsen (PTS) | 25 controls | 2024 | Full | Manual |
+| FI IT-verksamhet (FFFS + DORA) | Finansinspektionen (FI) | 25 controls | 2024 | Full | Annual |
+| IMY Tekniska och organisatoriska atgarder | Integritetsskyddsmyndigheten (IMY) | 25 controls | 2024 | Full | Annual |
+| HSLF-FS Informationshantering | Socialstyrelsen / E-halsomyndigheten / Inera | 25 controls | 2024 | Full | Manual |
+| Cybersakerhetslagen (NIS2) | Riksdagen / MSB / PTS / FI | 25 controls | 2025 | Full | Annual |
+| Energi- och transportsektorns cybersakerhetskrav | Energimyndigheten / Transportstyrelsen | 25 controls | 2025 | Full | Annual |
 
-**Total:** 11 tools, 543 controls/requirements, database built from 9 authoritative Dutch sources.
+**Total:** 11 tools, 502 controls/requirements, database built from 16 authoritative Swedish sources.
 
-### NEN 7510 / 7512 / 7513 Coverage Note
+---
 
-NEN standards are paid publications. The database contains control identifiers, titles, and category structures extracted from the publicly available previews and summaries on NEN Connect. Full normative text (detailed requirements, measurement criteria) is not included because it is subject to NEN's commercial license. Organizations that need the full text must obtain a NEN license directly.
+## Authorities Covered
+
+| Authority | Swedish Name | Frameworks |
+|-----------|-------------|------------|
+| MSB | Myndigheten for samhallsskydd och beredskap | Metodstod, Grundlaggande, MSBFS, Riskanalys, Klassificering, Incidenthantering |
+| DIGG | Myndigheten for digital forvaltning | Digital Sakerhet, SDK/API/eID |
+| SAPO | Sakerhetspolisen | Sakerhetsskydd |
+| CERT-SE | CERT-SE (under MSB) | Tekniska rekommendationer |
+| PTS | Post- och telestyrelsen | Driftsakerhet (PTSFS) |
+| FI | Finansinspektionen | IT-verksamhet (FFFS + DORA) |
+| IMY | Integritetsskyddsmyndigheten | Tekniska och organisatoriska atgarder |
+| Socialstyrelsen | Socialstyrelsen | HSLF-FS informationshantering |
+| E-halsomyndigheten | E-halsomyndigheten | Healthcare IT (in HSLF-FS) |
+| Energimyndigheten | Energimyndigheten | Energy sector cybersecurity |
+| Transportstyrelsen | Transportstyrelsen | Transport sector cybersecurity |
 
 ---
 
@@ -30,30 +53,24 @@ NEN standards are paid publications. The database contains control identifiers, 
 
 | Gap | Reason | Planned? |
 |-----|--------|----------|
-| TIBER-NL (Threat Intelligence Based Ethical Red-Teaming) | DNB framework for financial sector red-team testing — methodology document, not a control catalog | No |
-| VIR-BI (Voorschrift Informatiebeveiliging Rijksdienst Bijzondere Informatie) | Covers classified information handling (state secrets) — not publicly available | No |
-| ENSIA (Eenduidige Normatiek Single Information Audit) | Audit framework for municipalities, not a control standard itself | No |
-| Cyberbeveiligingswet (NIS2 implementation) | Dutch NIS2 transposition law — not yet in force as of database build date (2026-03-12) | Yes — planned once law enters force |
-| Wbni (Wet beveiliging netwerk- en informatiesystemen) | The predecessor NIS1 transposition — superseded by NIS2 implementation | No |
-| WDO (Wet digitale overheid) | Dutch Digital Government Act — sets access and identity requirements, not a security control framework | No |
-| BRP (Basisregistratie Personen) security requirements | Logius BRP requirements — separate from DigiD Normenkader | Yes — v0.2 |
-| eHerkenning security requirements | Logius eHerkenning requirements — separate procurement process | Yes — v0.2 |
-| NCTV sector security standards (vital infrastructure) | Ministry of Justice sector-specific standards — not publicly consolidated | No |
-| ISO/IEC 27001:2022 (full standard) | Commercial ISO standard — reference mappings included via `iso_mapping` field, full text excluded | No |
-| NEN-EN-ISO/IEC 27001:2023 (Dutch adoption) | Dutch NEN adoption of ISO 27001:2023 — commercial license | No |
-| CIS Controls v8 | International framework — out of scope for Dutch-specific MCP | No |
+| SS-ISO/IEC 27001:2023 (Swedish adoption, full text) | Commercial SIS standard -- reference mappings included via `iso_mapping` field, full text excluded | No |
+| Forsvarsmaktens sakerhetsinstruktioner | Military security instructions -- classified, not publicly available | No |
+| SKR (Sveriges Kommuner och Regioner) guidance | Municipal-specific guidance, complementary to MSB frameworks | Maybe |
+| Riksbanken financial infrastructure requirements | Narrow scope, central bank specific | No |
+| FRA (Forsvarets radioanstalt) requirements | Classified signal intelligence requirements | No |
+| CIS Controls v8 / NIST CSF | International frameworks -- out of scope for Sweden-specific MCP | No |
+| IVO (Inspektionen for vard och omsorg) | Healthcare inspection authority -- operational guidance, not framework controls | No |
 
 ---
 
 ## Limitations
 
-- **NEN full text excluded.** NEN 7510, 7512, and 7513 are commercial standards. Only control identifiers, titles, and category structures are included. Use `get_control` to retrieve what's available; implementation guidance fields may be empty for NEN controls.
-- **ISO mapping is partial.** Not all controls have `iso_mapping` populated. BIO2 has the most complete ISO 27002:2022 mapping; other frameworks have varying coverage. `get_iso_mapping` only returns controls with an explicit mapping.
 - **Snapshot data, not live.** The database is a point-in-time extract. Standards may be updated between database rebuilds. The `check_data_freshness` tool reports the last-fetched date for each source.
-- **Dutch as primary language.** All controls have Dutch titles and descriptions. English translations are available for BIO2, DNB, NCSC-NL TLS, and Logius API Design Rules. NEN 7510/7512/7513 and DigiD Normenkader are Dutch-only in this database.
-- **No case law or guidance letters.** The database contains normative controls only, not interpretive guidance, enforcement decisions, or sector supervisor letters.
+- **Swedish as primary language.** All controls have Swedish titles and descriptions (`title_nl`, `description_nl`). English translations are provided for all 16 frameworks. Some controls may have Swedish-only content.
+- **ISO mapping is partial.** Not all controls have `iso_mapping` populated. MSB Metodstod has the most complete ISO 27002:2022 mapping; other frameworks have varying coverage. `get_iso_mapping` only returns controls with an explicit mapping.
+- **No case law or guidance letters.** The database contains normative controls only, not interpretive guidance, enforcement decisions, or agency correspondence.
 - **Sector metadata may be incomplete.** Frameworks are tagged with `scope_sectors` values during ingestion. If a framework's sector coverage is broader than what's tagged, `search_by_sector` may not surface it.
-- **Not a legal opinion.** Compliance with these standards is not verified by this tool. The tool provides structured access to control text — whether a specific system or process meets a control is a judgment that requires qualified assessment.
+- **Not a legal opinion.** Compliance with these standards is not verified by this tool. The tool provides structured access to control text -- whether a specific system or process meets a control is a judgment that requires qualified assessment.
 
 ---
 
@@ -61,61 +78,86 @@ NEN standards are paid publications. The database contains control identifiers, 
 
 | Source | Refresh Schedule | Last Refresh | Next Expected |
 |--------|-----------------|-------------|---------------|
-| BIO2 | Annual | 2026-03-12 | 2027-01-01 |
-| DNB Good Practice IB | Annual | 2026-03-12 | 2027-01-01 |
-| NEN 7510/7512/7513 | 5-year cycle | 2026-03-12 | 2028-01-01 |
-| NCSC-NL Web App Guidelines | Annual | 2026-03-12 | 2027-01-01 |
-| DigiD Normenkader | Annual | 2026-03-12 | 2027-01-01 |
-| NCSC-NL TLS Guidelines | Annual | 2026-03-12 | 2027-01-01 |
-| Logius API Design Rules | Monthly | 2026-03-12 | 2026-04-12 |
+| MSB Metodstod | Annual | 2026-03-12 | 2027-01-01 |
+| MSB Grundlaggande | Annual | 2026-03-12 | 2027-01-01 |
+| MSBFS 2020:6/2020:7 | Annual | 2026-03-12 | 2027-01-01 |
+| MSB Riskanalys | Annual | 2026-03-12 | 2027-01-01 |
+| MSB Klassificering | Annual | 2026-03-12 | 2027-01-01 |
+| MSB Incidenthantering | Annual | 2026-03-12 | 2027-01-01 |
+| DIGG Digital Sakerhet | Annual | 2026-03-12 | 2027-01-01 |
+| DIGG SDK/API/eID | Annual | 2026-03-12 | 2027-01-01 |
+| SAPO Sakerhetsskydd | Manual | 2026-03-12 | On update |
+| CERT-SE Rekommendationer | Annual | 2026-03-12 | 2027-01-01 |
+| PTS Driftsakerhet | Manual | 2026-03-12 | On update |
+| FI IT-verksamhet | Annual | 2026-03-12 | 2027-01-01 |
+| IMY Tekniska atgarder | Annual | 2026-03-12 | 2027-01-01 |
+| HSLF-FS Informationshantering | Manual | 2026-03-12 | On update |
+| NIS2 Cybersakerhetslagen | Annual | 2026-03-12 | 2027-01-01 |
+| Energi-Transport Sakerhet | Annual | 2026-03-12 | 2027-01-01 |
 
 To check current freshness status programmatically, call the `check_data_freshness` tool.
-
-The ingestion pipeline (`ingest.yml`) runs on the most frequent source schedule. The `check-updates.yml` workflow runs daily and creates a GitHub issue if any source is overdue.
 
 ---
 
 ## Regulatory Mapping
 
-This table maps Dutch regulations and laws to the frameworks in this MCP that implement or operationalize them.
-
 | Regulation / Law | Relevant Frameworks | Notes |
 |-----------------|---------------------|-------|
-| Wet beveiliging netwerk- en informatiesystemen (Wbni) | BIO2, NEN 7510 | Wbni applies to operators of essential services and digital service providers |
-| Algemene Verordening Gegevensbescherming (AVG / GDPR) | BIO2, NEN 7510, NEN 7512 | Security of personal data — Article 32 technical measures |
-| Wet op de geneeskundige behandelingsovereenkomst (WGBO) | NEN 7510, NEN 7512, NEN 7513 | Electronic health records and patient data security |
-| Baseline Informatiebeveiliging Overheid (BIO2) | BIO2 | Directly mandatory for all Dutch government bodies (Rijksoverheid, provinces, municipalities, water boards) |
-| DigiD access requirements | DigiD Normenkader | Mandatory for all organizations connecting to DigiD |
-| Government REST API requirements | Logius API Design Rules | Mandatory for Dutch government REST APIs |
-| DNB supervisory requirements (financial sector) | DNB Good Practice IB | Applied by DNB in ongoing supervision of banks, insurers, payment institutions |
+| Sakerhetsskyddslagen (2018:585) | SAPO Sakerhetsskydd | Mandatory for activities of importance to Sweden's security |
+| Sakerhetsskyddsforordningen (2021:955) | SAPO Sakerhetsskydd | Implementing regulation for the Protective Security Act |
+| MSBFS 2020:6 | MSB Metodstod, MSBFS 2020 | Mandatory for Swedish government agencies |
+| MSBFS 2020:7 | MSBFS 2020 | IT incident reporting obligation for government agencies |
+| Cybersakerhetslagen (NIS2) | NIS2 Cybersakerhetslagen, MSB Metodstod | Swedish NIS2 transposition -- mandatory for essential and important entities |
+| Dataskyddsforordningen (GDPR) | IMY Tekniska atgarder, MSB Metodstod, DIGG Digital Sakerhet | Security of personal data -- Article 32 technical measures |
+| Patientdatalagen (2008:355) | HSLF-FS Informationshantering | Patient data security for healthcare |
+| FFFS 2014:5 | FI IT-verksamhet | IT governance for financial institutions |
+| DORA (Regulation (EU) 2022/2554) | FI IT-verksamhet | Digital operational resilience for financial sector |
+| LEK (Lag om elektronisk kommunikation) | PTS Driftsakerhet | Telecom operational security requirements |
+| Forvaltningslagen (2017:900) | DIGG Digital Sakerhet, DIGG SDK | Administrative Procedure Act -- digitalization requirements |
+| PSD2 | FI IT-verksamhet | Payment services security |
+| eIDAS | DIGG SDK | Electronic identification and trust services |
 
 ---
 
-## Sector-Specific Gaps
+## Sector Coverage
 
-### Government (Rijksoverheid, provinces, municipalities)
+### Government (Riksdag, government agencies, municipalities)
 
-- **Included:** BIO2 (full), Logius API Design Rules, DigiD Normenkader
-- **Gap:** ENSIA self-assessment framework for municipalities not included
-- **Gap:** VIR-BI (classified information) not included — out of scope (state secrets regime)
+- **Included:** MSB Metodstod (98 controls), MSB Grundlaggande (53), MSBFS 2020 (25), MSB Riskanalys (21), MSB Klassificering (20), MSB Incidenthantering (25), DIGG Digital Sakerhet (25), DIGG SDK (25), SAPO (35), CERT-SE (25), NIS2 (25), IMY (25)
+- **Gap:** Municipal-specific guidance from SKR (Sveriges Kommuner och Regioner) not included
 
-### Healthcare
+### Defense and National Security
 
-- **Included:** NEN 7510, NEN 7512, NEN 7513 (control identifiers and titles)
-- **Gap:** Full NEN normative text excluded (commercial license)
-- **Gap:** NICTIZ implementation guidelines not included
-- **Gap:** IGJ (healthcare inspectorate) sector-specific security requirements not included
+- **Included:** SAPO Sakerhetsskydd (35 controls -- information security, physical security, personnel security)
+- **Gap:** Forsvarsmaktens sakerhetsinstruktioner (classified, not available)
+- **Gap:** FRA (Forsvarets radioanstalt) signal intelligence requirements not included
+
+### Telecom
+
+- **Included:** PTS Driftsakerhet (25 controls -- operational security, redundancy, incident reporting, 5G security), NIS2 (25)
+- **Coverage:** PTSFS requirements, signaling security, roaming, SIM swap protection, supply chain
 
 ### Financial Services
 
-- **Included:** DNB Good Practice Informatiebeveiliging 2023
-- **Gap:** AFM cybersecurity guidance not included
-- **Gap:** TIBER-NL red-team methodology not included
-- **Gap:** EBA ICT Risk guidelines (EU-level) not included — see EU Regulations MCP
+- **Included:** FI IT-verksamhet (25 controls -- governance, DORA, outsourcing, PSD2, AML/KYC), NIS2 (25), IMY (25)
+- **Gap:** Riksbanken financial infrastructure requirements not included
 
-### Critical Infrastructure (Energy, Water, Telecom, Transport)
+### Healthcare
 
-- **Included:** BIO2 (for government-owned infrastructure)
-- **Gap:** NCTV sector security standards not included (not publicly consolidated)
-- **Gap:** NEN-EN 50600 (data center standards) not included
-- **Gap:** Sector-specific Wbni implementation guides not included
+- **Included:** HSLF-FS Informationshantering (25 controls -- PDL, HSLF-FS, Inera services, E-halsomyndigheten), NIS2 (25), IMY (25)
+- **Coverage:** Patient data logging, consent, SITHS, telemedicine, medical device security
+
+### Energy
+
+- **Included:** Energi-Transport Sakerhet (12 energy controls -- SCADA/OT, access control, remote access, incident reporting), NIS2 (25)
+- **Coverage:** OT/SCADA segmentation, protocol security, backup power, vulnerability scanning
+
+### Transport
+
+- **Included:** Energi-Transport Sakerhet (13 transport controls -- maritime, aviation, railway, road, vehicles), NIS2 (25)
+- **Coverage:** IMO/ISM maritime, ERTMS railway, GNSS spoofing, UNECE vehicle cybersecurity
+
+### Data Protection (cross-sector)
+
+- **Included:** IMY Tekniska atgarder (25 controls -- encryption, pseudonymization, DPIA, consent, breach notification)
+- **Coverage:** GDPR Art. 25 (privacy by design), Art. 28 (processor agreements), Art. 30 (records), Art. 33 (breach notification), Art. 35 (DPIA)

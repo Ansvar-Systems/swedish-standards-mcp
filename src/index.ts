@@ -15,18 +15,18 @@ import { handleListSources } from './tools/list-sources.js';
 import { handleCheckDataFreshness } from './tools/check-data-freshness.js';
 
 const server = new McpServer({
-  name: 'dutch-standards-mcp',
+  name: 'swedish-standards-mcp',
   version: '1.0.0',
 });
 
 server.tool(
   'search_controls',
-  'Search Dutch government cybersecurity and information security controls by keyword (Dutch or English). Covers BIO2, DNB Good Practice IB, NEN 7510, NCSC-NL guidelines, DigiD, and Logius API Design Rules.',
+  'Search Swedish government cybersecurity and information security controls by keyword (Swedish or English). Covers MSB Metodstod, MSB Grundlaggande, DIGG Digital Sakerhet, MSBFS 2020, SAPO Sakerhetsskydd, and CERT-SE recommendations.',
   {
-    query: z.string().describe('Search query in Dutch or English'),
-    framework_id: z.string().optional().describe('Filter by framework ID (e.g. "bio2", "nen7510")'),
+    query: z.string().describe('Search query in Swedish or English'),
+    framework_id: z.string().optional().describe('Filter by framework ID (e.g. "msb-metodstod", "cert-se-rekommendationer")'),
     category: z.string().optional().describe('Filter by control category'),
-    language: z.enum(['nl', 'en']).optional().describe('Language preference for results'),
+    language: z.enum(['sv', 'en']).optional().describe('Language preference for results'),
     limit: z.number().optional().describe('Maximum number of results to return'),
     offset: z.number().optional().describe('Number of results to skip for pagination'),
   },
@@ -35,18 +35,18 @@ server.tool(
 
 server.tool(
   'get_control',
-  'Retrieve a specific Dutch security control by its unique ID, including full text, implementation guidance, and framework metadata.',
+  'Retrieve a specific Swedish security control by its unique ID, including full text, implementation guidance, and framework metadata.',
   {
-    control_id: z.string().describe('Unique identifier of the control (e.g. "bio2-u.01", "nen7510-9.1.1")'),
+    control_id: z.string().describe('Unique identifier of the control (e.g. "msb-metodstod:L1", "cert-se-rekommendationer:CSE-1")'),
   },
   async (args) => handleGetControl(args),
 );
 
 server.tool(
   'list_controls',
-  'List all controls in a specified Dutch security framework, with optional filtering by category or level.',
+  'List all controls in a specified Swedish security framework, with optional filtering by category or level.',
   {
-    framework_id: z.string().describe('Framework to list controls from (e.g. "bio2", "nen7510")'),
+    framework_id: z.string().describe('Framework to list controls from (e.g. "msb-metodstod", "msbfs-2020")'),
     category: z.string().optional().describe('Filter by category within the framework'),
     level: z.string().optional().describe('Filter by control level or tier'),
     language: z.string().optional().describe('Language preference for result labels'),
@@ -58,44 +58,44 @@ server.tool(
 
 server.tool(
   'get_framework',
-  'Retrieve metadata for a specific Dutch security framework: name, version, issuing body, scope, and summary statistics.',
+  'Retrieve metadata for a specific Swedish security framework: name, version, issuing body, scope, and summary statistics.',
   {
-    framework_id: z.string().describe('Framework identifier (e.g. "bio2", "dnb-good-practice", "nen7510")'),
+    framework_id: z.string().describe('Framework identifier (e.g. "msb-metodstod", "sapo-sakerhetsskydd")'),
   },
   async (args) => handleGetFramework(args),
 );
 
 server.tool(
   'list_frameworks',
-  'List all Dutch security and information security frameworks available in this MCP server, including BIO2, DNB Good Practice IB, NEN 7510, NCSC-NL, DigiD, and Logius API Design Rules.',
+  'List all Swedish security and information security frameworks available in this MCP server, including MSB Metodstod, MSB Grundlaggande, DIGG, MSBFS 2020, SAPO, and CERT-SE.',
   {},
   async () => handleListFrameworks(),
 );
 
 server.tool(
   'compare_controls',
-  'Compare how a security topic is addressed across multiple Dutch frameworks simultaneously. Returns matching controls from each specified framework for the given query.',
+  'Compare how a security topic is addressed across multiple Swedish frameworks simultaneously. Returns matching controls from each specified framework for the given query.',
   {
     query: z.string().describe('Security topic or requirement to compare across frameworks'),
-    framework_ids: z.array(z.string()).describe('List of framework IDs to compare (e.g. ["bio2", "nen7510"])'),
+    framework_ids: z.array(z.string()).describe('List of framework IDs to compare (e.g. ["msb-metodstod", "msbfs-2020"])'),
   },
   async (args) => handleCompareControls(args),
 );
 
 server.tool(
   'get_iso_mapping',
-  'Find Dutch framework controls that map to a given ISO 27001/27002 control reference. Returns BIO2, NEN 7510, and other Dutch controls aligned to the specified ISO control.',
+  'Find Swedish framework controls that map to a given ISO 27001/27002 control reference. Returns MSB, DIGG, MSBFS, SAPO, and CERT-SE controls aligned to the specified ISO control.',
   {
-    iso_control: z.string().describe('ISO 27001/27002 control reference (e.g. "A.9.1.1", "8.2")'),
+    iso_control: z.string().describe('ISO 27001/27002 control reference (e.g. "5.1", "8.24")'),
   },
   async (args) => handleGetIsoMapping(args),
 );
 
 server.tool(
   'search_by_sector',
-  'Search Dutch security controls relevant to a specific sector (e.g. healthcare, finance, government). Optionally narrow results with a keyword query.',
+  'Search Swedish security controls relevant to a specific sector (e.g. government, digital_infrastructure). Optionally narrow results with a keyword query.',
   {
-    sector: z.string().describe('Target sector (e.g. "healthcare", "finance", "government", "water")'),
+    sector: z.string().describe('Target sector (e.g. "government", "digital_infrastructure")'),
     query: z.string().optional().describe('Optional keyword query to narrow results within the sector'),
   },
   async (args) => handleSearchBySector(args),
@@ -103,21 +103,21 @@ server.tool(
 
 server.tool(
   'about',
-  'Return a description of this MCP server: what it covers, which Dutch security frameworks are included, data sources, and usage guidance.',
+  'Return a description of this MCP server: what it covers, which Swedish security frameworks are included, data sources, and usage guidance.',
   {},
   async () => handleAbout(),
 );
 
 server.tool(
   'list_sources',
-  'List all primary data sources used in this MCP server, including source URLs, issuing organisations, version numbers, and last-updated dates for each Dutch security framework.',
+  'List all primary data sources used in this MCP server, including source URLs, issuing organisations, version numbers, and last-updated dates for each Swedish security framework.',
   {},
   async () => handleListSources(),
 );
 
 server.tool(
   'check_data_freshness',
-  'Check whether the embedded Dutch security framework data is current. Returns the last-updated date for each framework and flags any sources that may be outdated.',
+  'Check whether the embedded Swedish security framework data is current. Returns the last-updated date for each framework and flags any sources that may be outdated.',
   {},
   async () => handleCheckDataFreshness(),
 );
@@ -128,6 +128,6 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error('Fatal error starting dutch-standards-mcp:', err);
+  console.error('Fatal error starting swedish-standards-mcp:', err);
   process.exit(1);
 });

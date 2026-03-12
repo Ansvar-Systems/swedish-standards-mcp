@@ -1,46 +1,46 @@
 [
   {
-    "id": "get-bio2-control",
+    "id": "get-msb-metodstod-control",
     "tool": "get_control",
-    "args": { "control_id": "bio2:5.01.01" },
+    "args": { "control_id": "msb-metodstod:L1" },
     "assertions": [
-      { "type": "contains", "value": "Policies for information security" },
+      { "type": "contains", "value": "Ledningens engagemang" },
       { "type": "has_meta" }
     ]
   },
   {
-    "id": "get-dnb-control",
+    "id": "get-msbfs-control",
     "tool": "get_control",
-    "args": { "control_id": "dnb-gpib-2023:GPIB-01" },
+    "args": { "control_id": "msbfs-2020:2020:6-1" },
     "assertions": [
-      { "type": "contains", "value": "Informatiebeveiligingsbeleid" },
+      { "type": "contains", "value": "systematiskt informations" },
       { "type": "has_meta" }
     ]
   },
   {
-    "id": "get-nen7510-control",
+    "id": "get-cert-se-control",
     "tool": "get_control",
-    "args": { "control_id": "nen-7510-2017:12.4.1" },
+    "args": { "control_id": "cert-se-rekommendationer:CSE-1" },
     "assertions": [
-      { "type": "contains", "value": "Gebeurtenissen registreren" },
+      { "type": "contains", "value": "nätverksperimeter" },
       { "type": "has_meta" }
     ]
   },
   {
-    "id": "search-dutch-term",
+    "id": "search-swedish-term",
     "tool": "search_controls",
-    "args": { "query": "informatiebeveiliging" },
+    "args": { "query": "informationssakerhet" },
     "assertions": [
-      { "type": "contains", "value": "bio2" },
+      { "type": "contains", "value": "msb-metodstod" },
       { "type": "has_meta" }
     ]
   },
   {
-    "id": "search-english-monitoring",
+    "id": "search-english-patch",
     "tool": "search_controls",
-    "args": { "query": "monitoring" },
+    "args": { "query": "patch" },
     "assertions": [
-      { "type": "contains", "value": "bio2" },
+      { "type": "contains", "value": "msb-grundlaggande" },
       { "type": "has_meta" }
     ]
   },
@@ -49,16 +49,16 @@
     "tool": "get_iso_mapping",
     "args": { "iso_control": "5.1" },
     "assertions": [
-      { "type": "contains", "value": "bio2" },
+      { "type": "contains", "value": "msb-metodstod" },
       { "type": "has_meta" }
     ]
   },
   {
-    "id": "sector-healthcare",
+    "id": "sector-government",
     "tool": "search_by_sector",
-    "args": { "sector": "healthcare" },
+    "args": { "sector": "government" },
     "assertions": [
-      { "type": "contains", "value": "nen-7510" },
+      { "type": "contains", "value": "msb-metodstod" },
       { "type": "has_meta" }
     ]
   },
@@ -67,36 +67,36 @@
     "tool": "list_frameworks",
     "args": {},
     "assertions": [
-      { "type": "contains", "value": "bio2" },
-      { "type": "contains", "value": "nen-7510" },
+      { "type": "contains", "value": "msb-metodstod" },
+      { "type": "contains", "value": "cert-se-rekommendationer" },
       { "type": "has_meta" }
     ]
   },
   {
-    "id": "list-bio2-controls",
+    "id": "list-msb-controls",
     "tool": "list_controls",
-    "args": { "framework_id": "bio2" },
+    "args": { "framework_id": "msb-metodstod" },
     "assertions": [
-      { "type": "contains", "value": "5.01.01" },
+      { "type": "contains", "value": "L1" },
       { "type": "has_meta" }
     ]
   },
   {
-    "id": "get-framework-bio2",
+    "id": "get-framework-msb",
     "tool": "get_framework",
-    "args": { "framework_id": "bio2" },
+    "args": { "framework_id": "msb-metodstod" },
     "assertions": [
-      { "type": "contains", "value": "BIO" },
+      { "type": "contains", "value": "MSB" },
       { "type": "has_meta" }
     ]
   },
   {
-    "id": "compare-bio2-dnb",
+    "id": "compare-msb-msbfs",
     "tool": "compare_controls",
-    "args": { "query": "informatiebeveiliging", "framework_ids": ["bio2", "dnb-gpib-2023"] },
+    "args": { "query": "informationssakerhet", "framework_ids": ["msb-metodstod", "msbfs-2020"] },
     "assertions": [
-      { "type": "contains", "value": "bio2" },
-      { "type": "contains", "value": "dnb-gpib-2023" },
+      { "type": "contains", "value": "msb-metodstod" },
+      { "type": "contains", "value": "msbfs-2020" },
       { "type": "has_meta" }
     ]
   },
@@ -112,7 +112,7 @@
   {
     "id": "negative-unknown-control",
     "tool": "get_control",
-    "args": { "control_id": "bio2:999.999" },
+    "args": { "control_id": "msb-metodstod:Z99" },
     "assertions": [
       { "type": "is_error" },
       { "type": "error_type", "value": "NO_MATCH" },
@@ -144,7 +144,7 @@
     "tool": "about",
     "args": {},
     "assertions": [
-      { "type": "contains", "value": "Dutch Standards MCP" },
+      { "type": "contains", "value": "Swedish Standards MCP" },
       { "type": "has_meta" }
     ]
   },

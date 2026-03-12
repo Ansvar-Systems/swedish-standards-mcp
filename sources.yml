@@ -1,196 +1,356 @@
 schema_version: "1.0"
-mcp_name: "Dutch Standards MCP"
+mcp_name: "Swedish Standards MCP"
 category: "domain_intelligence"
 
 sources:
-  - name: "BIO2 (Baseline Informatiebeveiliging Overheid)"
-    authority: "CIP/BZK"
-    official_url: "https://bio-overheid.nl"
-    api_url: "https://github.com/MinBZK/Baseline-Informatiebeveiliging-Overheid"
-    retrieval_method: "GIT_CLONE"
-    format: "Markdown/ReSpec"
+  - name: "MSB Metodstod (Systematic Information Security Work)"
+    authority: "MSB"
+    official_url: "https://www.informationssakerhet.se/metodstod/"
+    api_url: null
+    retrieval_method: "EMBEDDED"
+    format: "Structured data (embedded in ingestion script)"
     authentication: "none"
     update_frequency: "annual"
-    version: "2.0"
+    version: "2024"
     effective_date: "2024-01-01"
     license:
-      type: "CC0-1.0"
-      url: "https://github.com/MinBZK/Baseline-Informatiebeveiliging-Overheid/blob/main/LICENSE"
-      summary: "Public domain — no restrictions on use"
+      type: "Public sector publication"
+      url: "https://www.informationssakerhet.se/"
+      summary: "Public sector guidance from MSB — free to reference"
     coverage:
-      scope: "Government-wide baseline controls (BBN1/2/3)"
-      version: "BIO 2.0"
-      item_count: 160
+      scope: "Methodology for systematic information security work based on ISO 27001"
+      version: "2024 edition"
+      item_count: 98
     languages:
-      - "nl"
+      - "sv"
       - "en"
 
-  - name: "DNB Good Practice Information Security 2023"
-    authority: "DNB"
-    official_url: "https://www.dnb.nl/en/sector-information/supervision-stages/ongoing-supervision/good-practices/"
+  - name: "MSB Grundlaggande sakerhetesatgarder (Basic Security Measures)"
+    authority: "MSB"
+    official_url: "https://www.informationssakerhet.se/metodstod/"
     api_url: null
-    retrieval_method: "BULK_DOWNLOAD"
-    format: "PDF"
+    retrieval_method: "EMBEDDED"
+    format: "Structured data (embedded in ingestion script)"
     authentication: "none"
     update_frequency: "annual"
-    version: "2023"
-    effective_date: "2023-01-01"
+    version: "2024"
+    effective_date: "2024-01-01"
     license:
       type: "Public sector publication"
-      url: null
-      summary: "Public sector guidance — free to reference"
+      url: "https://www.informationssakerhet.se/"
+      summary: "Public sector guidance from MSB — free to reference"
     coverage:
-      scope: "Financial sector IT security controls"
-      version: "2023 edition"
-      item_count: 58
+      scope: "Fundamental security measures: technical, administrative, and physical"
+      version: "2024 edition"
+      item_count: 53
     languages:
-      - "nl"
+      - "sv"
       - "en"
 
-  - name: "NEN 7510:2017"
-    authority: "NEN"
-    official_url: "https://www.nen.nl/nen-7510-2017-nl-245398"
+  - name: "DIGG Digital Sakerhet (Digital Security Guidance)"
+    authority: "DIGG"
+    official_url: "https://www.digg.se/digitala-tjanster/digital-sakerhet"
     api_url: null
-    retrieval_method: "BULK_DOWNLOAD"
-    format: "PDF"
-    authentication: "none"
-    update_frequency: "manual"
-    version: "2017"
-    effective_date: "2017-01-01"
-    license:
-      type: "NEN standard (extracted reference data)"
-      url: "https://www.nen.nl/en/terms-of-use"
-      summary: "Reference data extracted — control IDs, titles, categories"
-    coverage:
-      scope: "Healthcare information security controls"
-      version: "NEN 7510:2017"
-      item_count: 113
-    languages:
-      - "nl"
-
-  - name: "NEN 7512:2022"
-    authority: "NEN"
-    official_url: "https://www.nen.nl/nen-7512-2022-nl-291955"
-    api_url: null
-    retrieval_method: "BULK_DOWNLOAD"
-    format: "PDF"
-    authentication: "none"
-    update_frequency: "manual"
-    version: "2022"
-    effective_date: "2022-01-01"
-    license:
-      type: "NEN standard (extracted reference data)"
-      url: "https://www.nen.nl/en/terms-of-use"
-      summary: "Reference data extracted — control IDs, titles, categories"
-    coverage:
-      scope: "Healthcare data exchange trust controls"
-      version: "NEN 7512:2022"
-      item_count: 28
-    languages:
-      - "nl"
-
-  - name: "NEN 7513:2023"
-    authority: "NEN"
-    official_url: "https://www.nen.nl/nen-7513-2023-nl-308988"
-    api_url: null
-    retrieval_method: "BULK_DOWNLOAD"
-    format: "PDF"
-    authentication: "none"
-    update_frequency: "manual"
-    version: "2023"
-    effective_date: "2023-01-01"
-    license:
-      type: "NEN standard (extracted reference data)"
-      url: "https://www.nen.nl/en/terms-of-use"
-      summary: "Reference data extracted — control IDs, titles, categories"
-    coverage:
-      scope: "Healthcare logging and audit trail controls"
-      version: "NEN 7513:2023"
-      item_count: 24
-    languages:
-      - "nl"
-
-  - name: "NCSC-NL ICT Security Guidelines for Web Applications"
-    authority: "NCSC-NL"
-    official_url: "https://www.ncsc.nl/documenten/publicaties/2019/mei/01/ict-beveiligingsrichtlijnen-voor-webapplicaties"
-    api_url: null
-    retrieval_method: "BULK_DOWNLOAD"
-    format: "PDF"
+    retrieval_method: "EMBEDDED"
+    format: "Structured data (embedded in ingestion script)"
     authentication: "none"
     update_frequency: "annual"
-    version: "2023"
-    effective_date: "2023-01-01"
-    license:
-      type: "CC BY 4.0"
-      url: "https://www.ncsc.nl/copyright"
-      summary: "Creative Commons Attribution — free to use with attribution"
-    coverage:
-      scope: "Web application security requirements"
-      version: "2023 edition"
-      item_count: 64
-    languages:
-      - "nl"
-
-  - name: "NCSC-NL Security Guidelines for TLS"
-    authority: "NCSC-NL"
-    official_url: "https://www.ncsc.nl/documenten/publicaties/2021/januari/19/ict-beveiligingsrichtlijnen-voor-transport-layer-security-2.1"
-    api_url: null
-    retrieval_method: "BULK_DOWNLOAD"
-    format: "PDF"
-    authentication: "none"
-    update_frequency: "annual"
-    version: "2.1"
-    effective_date: "2021-01-01"
-    license:
-      type: "CC BY 4.0"
-      url: "https://www.ncsc.nl/copyright"
-      summary: "Creative Commons Attribution — free to use with attribution"
-    coverage:
-      scope: "TLS configuration recommendations"
-      version: "v2.1"
-      item_count: 39
-    languages:
-      - "nl"
-      - "en"
-
-  - name: "DigiD ICT Security Assessment Normenkader 3.0"
-    authority: "Logius"
-    official_url: "https://www.logius.nl/domeinen/toegang/digid/documentatie"
-    api_url: null
-    retrieval_method: "BULK_DOWNLOAD"
-    format: "PDF"
-    authentication: "none"
-    update_frequency: "annual"
-    version: "3.0"
-    effective_date: "2023-01-01"
+    version: "2024"
+    effective_date: "2024-01-01"
     license:
       type: "Public sector publication"
-      url: null
-      summary: "Public sector guidance — free to reference"
+      url: "https://www.digg.se/"
+      summary: "Public sector guidance from DIGG — free to reference"
     coverage:
-      scope: "21 security norms for DigiD connection holders"
-      version: "Normenkader 3.0"
+      scope: "Security guidance for Swedish government digital services"
+      version: "2024 edition"
+      item_count: 25
+    languages:
+      - "sv"
+      - "en"
+
+  - name: "MSBFS 2020:6 and 2020:7 (MSB Regulations)"
+    authority: "MSB"
+    official_url: "https://www.msb.se/sv/regler/gallande-regler/krisberedskap-och-civilt-forsvar/msbfs-20206/"
+    api_url: null
+    retrieval_method: "EMBEDDED"
+    format: "Structured data (embedded in ingestion script)"
+    authentication: "none"
+    update_frequency: "manual"
+    version: "2020"
+    effective_date: "2020-10-01"
+    license:
+      type: "Swedish government regulation (public)"
+      url: "https://www.msb.se/"
+      summary: "Legally binding regulation — free to reference"
+    coverage:
+      scope: "Mandatory requirements for systematic information security (2020:6) and IT incident reporting (2020:7)"
+      version: "MSBFS 2020:6 and 2020:7"
+      item_count: 25
+    languages:
+      - "sv"
+      - "en"
+
+  - name: "SAPO Sakerhetsskydd (Security Protection Guidance)"
+    authority: "SAPO"
+    official_url: "https://sakerhetspolisen.se/verksamheten/sakerhetsskydd.html"
+    api_url: null
+    retrieval_method: "EMBEDDED"
+    format: "Structured data (embedded in ingestion script)"
+    authentication: "none"
+    update_frequency: "manual"
+    version: "2024"
+    effective_date: "2021-12-01"
+    license:
+      type: "Public sector guidance"
+      url: "https://sakerhetspolisen.se/"
+      summary: "Security protection guidance from SAPO — free to reference"
+    coverage:
+      scope: "Security protection under the Security Protection Act (2018:585)"
+      version: "2024 edition"
+      item_count: 35
+    languages:
+      - "sv"
+      - "en"
+
+  - name: "CERT-SE Tekniska rekommendationer (Technical Recommendations)"
+    authority: "CERT-SE"
+    official_url: "https://www.cert.se/rekommendationer/"
+    api_url: null
+    retrieval_method: "EMBEDDED"
+    format: "Structured data (embedded in ingestion script)"
+    authentication: "none"
+    update_frequency: "annual"
+    version: "2024"
+    effective_date: "2024-01-01"
+    license:
+      type: "Public sector publication"
+      url: "https://www.cert.se/"
+      summary: "Technical recommendations from CERT-SE — free to reference"
+    coverage:
+      scope: "Technical security recommendations for Swedish organizations"
+      version: "2024 edition"
+      item_count: 25
+    languages:
+      - "sv"
+      - "en"
+
+  - name: "MSB Vagledning for riskanalys (Risk Analysis Methodology)"
+    authority: "MSB"
+    official_url: "https://www.informationssakerhet.se/metodstod/riskanalys/"
+    api_url: null
+    retrieval_method: "EMBEDDED"
+    format: "Structured data (embedded in ingestion script)"
+    authentication: "none"
+    update_frequency: "annual"
+    version: "2024"
+    effective_date: "2024-01-01"
+    license:
+      type: "Public sector publication"
+      url: "https://www.informationssakerhet.se/"
+      summary: "Public sector guidance from MSB — free to reference"
+    coverage:
+      scope: "Risk analysis methodology aligned with ISO 27005"
+      version: "2024 edition"
       item_count: 21
     languages:
-      - "nl"
+      - "sv"
+      - "en"
 
-  - name: "Logius NLGov REST API Design Rules"
-    authority: "Logius"
-    official_url: "https://publicatie.centrumvoorstandaarden.nl/api/adr/"
-    api_url: "https://github.com/Logius-standaarden/API-Design-Rules"
-    retrieval_method: "GIT_CLONE"
-    format: "ReSpec/HTML"
+  - name: "MSB Vagledning for klassificering (Information Classification)"
+    authority: "MSB"
+    official_url: "https://www.informationssakerhet.se/metodstod/klassificering/"
+    api_url: null
+    retrieval_method: "EMBEDDED"
+    format: "Structured data (embedded in ingestion script)"
     authentication: "none"
-    update_frequency: "monthly"
-    version: "2.0"
+    update_frequency: "annual"
+    version: "2024"
     effective_date: "2024-01-01"
     license:
-      type: "CC BY 4.0"
-      url: "https://github.com/Logius-standaarden/API-Design-Rules/blob/main/LICENSE"
-      summary: "Creative Commons Attribution — free to use with attribution"
+      type: "Public sector publication"
+      url: "https://www.informationssakerhet.se/"
+      summary: "Public sector guidance from MSB — free to reference"
     coverage:
-      scope: "REST API design rules for Dutch government services"
-      version: "ADR v2.0"
-      item_count: 36
+      scope: "Information classification by confidentiality, integrity, and availability"
+      version: "2024 edition"
+      item_count: 20
     languages:
+      - "sv"
+      - "en"
+
+  - name: "MSB Vagledning for incidenthantering (Incident Management)"
+    authority: "MSB"
+    official_url: "https://www.informationssakerhet.se/metodstod/incidenthantering/"
+    api_url: null
+    retrieval_method: "EMBEDDED"
+    format: "Structured data (embedded in ingestion script)"
+    authentication: "none"
+    update_frequency: "annual"
+    version: "2024"
+    effective_date: "2024-01-01"
+    license:
+      type: "Public sector publication"
+      url: "https://www.informationssakerhet.se/"
+      summary: "Public sector guidance from MSB — free to reference"
+    coverage:
+      scope: "Incident management and response capabilities"
+      version: "2024 edition"
+      item_count: 25
+    languages:
+      - "sv"
+      - "en"
+
+  - name: "PTS Foreskrifter om driftsakerhet (Telecom Security)"
+    authority: "PTS"
+    official_url: "https://pts.se/sv/bransch/regler/foreskrifter/ptsfs-20151/"
+    api_url: null
+    retrieval_method: "EMBEDDED"
+    format: "Structured data (embedded in ingestion script)"
+    authentication: "none"
+    update_frequency: "manual"
+    version: "2024"
+    effective_date: "2015-01-01"
+    license:
+      type: "Swedish government regulation (public)"
+      url: "https://pts.se/"
+      summary: "Legally binding telecom regulation — free to reference"
+    coverage:
+      scope: "Operational security requirements for electronic communications providers"
+      version: "PTSFS consolidated"
+      item_count: 25
+    languages:
+      - "sv"
+      - "en"
+
+  - name: "Finansinspektionen IT-verksamhet (FFFS + DORA)"
+    authority: "FI"
+    official_url: "https://www.fi.se/sv/vara-register/sok-fffs/2014/20145/"
+    api_url: null
+    retrieval_method: "EMBEDDED"
+    format: "Structured data (embedded in ingestion script)"
+    authentication: "none"
+    update_frequency: "annual"
+    version: "2024"
+    effective_date: "2014-12-01"
+    license:
+      type: "Swedish government regulation (public)"
+      url: "https://www.fi.se/"
+      summary: "Legally binding financial regulation — free to reference"
+    coverage:
+      scope: "IT governance, security, and DORA requirements for financial institutions"
+      version: "FFFS consolidated with DORA"
+      item_count: 25
+    languages:
+      - "sv"
+      - "en"
+
+  - name: "IMY Tekniska och organisatoriska atgarder (GDPR measures)"
+    authority: "IMY"
+    official_url: "https://www.imy.se/verksamhet/dataskydd/det-har-galler-enligt-gdpr/tekniska-och-organisatoriska-atgarder/"
+    api_url: null
+    retrieval_method: "EMBEDDED"
+    format: "Structured data (embedded in ingestion script)"
+    authentication: "none"
+    update_frequency: "annual"
+    version: "2024"
+    effective_date: "2018-05-25"
+    license:
+      type: "Public sector guidance"
+      url: "https://www.imy.se/"
+      summary: "Data protection guidance from IMY — free to reference"
+    coverage:
+      scope: "Technical and organizational measures for GDPR compliance"
+      version: "2024 edition"
+      item_count: 25
+    languages:
+      - "sv"
+      - "en"
+
+  - name: "HSLF-FS Informationshantering (Healthcare Information Handling)"
+    authority: "Socialstyrelsen"
+    official_url: "https://www.socialstyrelsen.se/regler-och-riktlinjer/foreskrifter-och-allmanna-rad/"
+    api_url: null
+    retrieval_method: "EMBEDDED"
+    format: "Structured data (embedded in ingestion script)"
+    authentication: "none"
+    update_frequency: "manual"
+    version: "2024"
+    effective_date: "2016-01-01"
+    license:
+      type: "Swedish government regulation (public)"
+      url: "https://www.socialstyrelsen.se/"
+      summary: "Healthcare regulation — free to reference"
+    coverage:
+      scope: "Patient data law security, HSLF-FS, Inera services (SITHS, HSA, NPO), E-halsomyndigheten"
+      version: "Consolidated"
+      item_count: 25
+    languages:
+      - "sv"
+      - "en"
+
+  - name: "Cybersakerhetslagen (Swedish NIS2 transposition)"
+    authority: "Riksdagen / MSB"
+    official_url: "https://www.msb.se/sv/amnesomraden/cybersakerhet-och-informationssakerhet/nis-direktivet/"
+    api_url: null
+    retrieval_method: "EMBEDDED"
+    format: "Structured data (embedded in ingestion script)"
+    authentication: "none"
+    update_frequency: "annual"
+    version: "2025"
+    effective_date: "2025-01-01"
+    license:
+      type: "Swedish law (public)"
+      url: "https://www.riksdagen.se/"
+      summary: "Swedish law — free to reference"
+    coverage:
+      scope: "NIS2 governance, risk management measures (Article 21), incident reporting (Article 23), supervision"
+      version: "2025 transposition"
+      item_count: 25
+    languages:
+      - "sv"
+      - "en"
+
+  - name: "DIGG Saker digital kommunikation och e-legitimering (SDK, API, eID)"
+    authority: "DIGG"
+    official_url: "https://www.digg.se/digitala-tjanster/sdk"
+    api_url: null
+    retrieval_method: "EMBEDDED"
+    format: "Structured data (embedded in ingestion script)"
+    authentication: "none"
+    update_frequency: "annual"
+    version: "2024"
+    effective_date: "2024-01-01"
+    license:
+      type: "Public sector publication"
+      url: "https://www.digg.se/"
+      summary: "Public sector guidance from DIGG — free to reference"
+    coverage:
+      scope: "SDK, API management, digital collaboration, and e-ID (Sweden Connect)"
+      version: "2024 edition"
+      item_count: 25
+    languages:
+      - "sv"
+      - "en"
+
+  - name: "Energi- och transportsektorns cybersakerhetskrav"
+    authority: "Energimyndigheten / Transportstyrelsen"
+    official_url: "https://www.energimyndigheten.se/"
+    api_url: null
+    retrieval_method: "EMBEDDED"
+    format: "Structured data (embedded in ingestion script)"
+    authentication: "none"
+    update_frequency: "annual"
+    version: "2025"
+    effective_date: "2025-01-01"
+    license:
+      type: "Swedish government requirements (public)"
+      url: "https://www.energimyndigheten.se/"
+      summary: "Sector requirements — free to reference"
+    coverage:
+      scope: "Energy (SCADA/OT) and transport (maritime, aviation, railway, road) cybersecurity"
+      version: "2025 edition"
+      item_count: 25
+    languages:
+      - "sv"
       - "en"

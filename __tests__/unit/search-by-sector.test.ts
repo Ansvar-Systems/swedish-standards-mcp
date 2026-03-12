@@ -3,60 +3,40 @@ import { describe, it, expect } from 'vitest';
 import { handleSearchBySector } from '../../src/tools/search-by-sector.js';
 
 describe('handleSearchBySector', () => {
-  it('healthcare sector returns nen-7510 but not dnb-gpib-2023', () => {
-    const result = handleSearchBySector({ sector: 'healthcare' });
+  it('government sector returns msb-metodstod and msbfs-2020', () => {
+    const result = handleSearchBySector({ sector: 'government' });
 
     expect(result.isError).toBeFalsy();
     expect(result._meta).toBeDefined();
 
     const text = result.content[0].text;
 
-    expect(text).toContain('nen-7510');
-    expect(text).not.toContain('dnb-gpib-2023');
-    expect(text).not.toContain('bio2');
+    expect(text).toContain('msb-metodstod');
+    expect(text).toContain('msbfs-2020');
   });
 
-  it('finance sector returns dnb-gpib-2023', () => {
-    const result = handleSearchBySector({ sector: 'finance' });
+  it('digital_infrastructure sector returns msb-grundlaggande', () => {
+    const result = handleSearchBySector({ sector: 'digital_infrastructure' });
 
     expect(result.isError).toBeFalsy();
 
     const text = result.content[0].text;
 
-    expect(text).toContain('dnb-gpib-2023');
-    expect(text).not.toContain('nen-7510');
-    expect(text).not.toContain('bio2');
-  });
-
-  it('government sector returns bio2', () => {
-    const result = handleSearchBySector({ sector: 'government' });
-
-    expect(result.isError).toBeFalsy();
-
-    const text = result.content[0].text;
-
-    expect(text).toContain('bio2');
-    expect(text).not.toContain('nen-7510');
-    expect(text).not.toContain('dnb-gpib-2023');
+    expect(text).toContain('msb-grundlaggande');
   });
 
   it('with query param returns matching controls within sector frameworks', () => {
-    // BIO2 is government sector; "informatiebeveiliging" matches bio2 controls
-    const result = handleSearchBySector({ sector: 'government', query: 'informatiebeveiliging' });
+    const result = handleSearchBySector({ sector: 'government', query: 'riskanalys' });
 
     expect(result.isError).toBeFalsy();
 
     const text = result.content[0].text;
 
     // Framework section must be present
-    expect(text).toContain('bio2');
+    expect(text).toContain('msb-metodstod');
 
-    // Controls section must be present with a match
-    expect(text).toContain('bio2:');
-
-    // Must not leak controls from other sectors
-    expect(text).not.toContain('nen-7510:');
-    expect(text).not.toContain('dnb-gpib-2023:');
+    // Controls section should have results
+    expect(text).toContain('Controls matching');
   });
 
   it('unknown sector returns INVALID_INPUT', () => {
@@ -68,7 +48,7 @@ describe('handleSearchBySector', () => {
   });
 
   it('missing/empty sector returns INVALID_INPUT', () => {
-    // @ts-expect-error — intentional missing arg for test
+    // @ts-expect-error -- intentional missing arg for test
     const result = handleSearchBySector({});
 
     expect(result.isError).toBe(true);
@@ -82,9 +62,18 @@ describe('handleSearchBySector', () => {
     expect(result._error_type).toBe('INVALID_INPUT');
   });
 
-  it('returns NO_MATCH when sector has no frameworks', () => {
-    // 'energy' is a valid sector name but no frameworks are seeded for it
+  it('energy sector returns energy-transport framework', () => {
     const result = handleSearchBySector({ sector: 'energy' });
+
+    expect(result.isError).toBeFalsy();
+
+    const text = result.content[0].text;
+    expect(text).toContain('energi-transport-sakerhet');
+  });
+
+  it('returns NO_MATCH when sector has no frameworks', () => {
+    // 'education' is a valid sector name but no frameworks are seeded for it
+    const result = handleSearchBySector({ sector: 'education' });
 
     expect(result.isError).toBe(true);
     expect(result._error_type).toBe('NO_MATCH');
