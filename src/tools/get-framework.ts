@@ -1,6 +1,7 @@
 // src/tools/get-framework.ts
 import { getDb } from '../db.js';
 import { successResponse, errorResponse } from '../response-meta.js';
+import { buildCitation } from '../citation.js';
 import type { Framework } from '../types.js';
 
 interface FrameworkWithCount extends Framework {
@@ -112,5 +113,14 @@ export function handleGetFramework(args: { framework_id?: string }) {
     lines.push(`**Source:** ${row.source_url}`);
   }
 
-  return successResponse(lines.join('\n'));
+  return {
+    ...successResponse(lines.join('\n')),
+    _citation: buildCitation(
+      row.id,
+      row.name_nl ?? row.name,
+      'get_framework',
+      { framework_id: framework_id!.trim() },
+      row.source_url ?? undefined,
+    ),
+  };
 }
